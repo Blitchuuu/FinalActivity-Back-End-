@@ -27,6 +27,11 @@ export const apiVideos = {
 export const apiUsers = {
   getHistory: (userId) => API.get(`/videos/users/${userId}/history`),
   addToHistory: (userId, videoId) => API.post(`/videos/users/${userId}/history`, { videoId }),
+  getSubscriptions: (userId) => API.get(`/videos/users/${userId}/subscriptions`),
+  subscribeToChannel: (channelId) => API.post(`/videos/channels/${channelId}/subscribe`),
+  unsubscribeFromChannel: (channelId) => API.delete(`/videos/channels/${channelId}/subscribe`),
+  checkSubscription: (channelId) => API.get(`/videos/channels/${channelId}/subscription`),
+  getSubscribersCount: (channelId) => API.get(`/videos/channels/${channelId}/subscribers`),
 };
 
 export default API;

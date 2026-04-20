@@ -76,10 +76,12 @@ export default function Upload() {
       <TextField
         fullWidth
         name="youtubeUrl"
-        label="YouTube Link"
+        label="YouTube Link (will embed directly on the page)"
+        placeholder="https://www.youtube.com/watch?v=VIDEO_ID or https://youtu.be/VIDEO_ID"
         value={formData.youtubeUrl}
         onChange={handleChange}
         sx={{ mb: 2 }}
+        helperText="Supported formats: youtube.com/watch?v=..., youtu.be/..., youtube.com/embed/..."
       />
       <TextField
         fullWidth

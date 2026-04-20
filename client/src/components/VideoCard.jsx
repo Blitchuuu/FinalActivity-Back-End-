@@ -1,11 +1,13 @@
-import { Card, CardMedia, CardContent, Typography, Box, IconButton } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import useAuth from '../context/useAuth';
 import { apiVideos } from '../api/axios';
 
-export default function VideoCard({ video }) {
+export default function VideoCard({ video, fullWidth = false }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const previewRef = useRef(null);
   const navigate = useNavigate();
   const theme = useTheme();
   const { user } = useAuth();
@@ -25,8 +27,9 @@ export default function VideoCard({ video }) {
       onClick={handleClick}
       sx={{
         cursor: 'pointer',
-        height: '100%',
-        width: '15vw',
+        height: fullWidth ? 'auto' : '100%',
+        flex: fullWidth ? '0 1 auto' : '1 1 auto',
+        width: fullWidth ? '100%' : '15vw',
         maxWidth: '100%',
         display: 'flex',
         flexDirection: 'column',
@@ -39,6 +42,8 @@ export default function VideoCard({ video }) {
       }}
     >
       <Box
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         sx={{
           position: 'relative',
           overflow: 'hidden',
@@ -46,49 +51,42 @@ export default function VideoCard({ video }) {
           height: 180,
         }}
       >
+        {/* Thumbnail - Show when not hovering */}
+        {!isHovered && (
           <CardMedia
-          component="img"
-          image={video.thumbnail || 'https://picsum.photos/1280/720?random=1?blur'}
-          alt={video.title}
-          onError={(e) => {
-            e.target.src = 'https://picsum.photos/1280/720?random=1?blur';
-          }}
-          sx={{
-            height: '100%',
-            width: '100%',
-            objectFit: 'cover',
-            transition: 'opacity 0.3s ease',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            zIndex: 1,
-          }}
-        />
-
-
-
-        <CardMedia
-            component="video"
-            src={video.src || 'https://www.w3schools.com/html/mov_bbb.mp4'}
-            muted
-            loop
-            playsInline
-            onMouseEnter={(e) => e.target.play()}
-            onMouseLeave={(e) => e.target.pause()}
+            component="img"
+            image={video.thumbnail || 'https://picsum.photos/1280/720?random=1?blur'}
+            alt={video.title}
+            onError={(e) => {
+              e.target.src = 'https://picsum.photos/1280/720?random=1?blur';
+            }}
             sx={{
               height: '100%',
               width: '100%',
               objectFit: 'cover',
-              opacity: 0,
+              transition: 'transform 0.3s ease',
+            }}
+          />
+        )}
+
+        {/* YouTube Video Preview - Show on hover */}
+        {isHovered && video.youtubeUrl && (
+          <iframe
+            ref={previewRef}
+            src={`https://www.youtube.com/embed/${video.youtubeUrl.split('v=')[1] || video.youtubeUrl.split('youtu.be/')[1]}?autoplay=1&mute=1&controls=0&modestbranding=1`}
+            style={{
+              height: '100%',
+              width: '100%',
+              border: 'none',
               position: 'absolute',
               top: 0,
               left: 0,
-              zIndex: 2,
-              '&:hover': {
-                opacity: 1,
-              },
+              pointerEvents: 'none',
             }}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
           />
+        )}
 
         <Box
           sx={{
@@ -107,31 +105,6 @@ export default function VideoCard({ video }) {
         >
           Trending
         </Box>
-        {isOwner && (
-          <IconButton
-            onClick={(e) => {
-              e.stopPropagation();
-              if (confirm('Delete this video?')) {
-                apiVideos.deleteVideo(video.id).then(() => {
-                  // Optimistic remove would require parent callback; reload page
-                  window.location.reload();
-                }).catch(() => alert('Delete failed'));
-              }
-            }}
-            sx={{
-              position: 'absolute',
-              top: 8,
-              left: 8,
-              color: 'error.main',
-              backgroundColor: 'rgba(255, 0, 0, 0.8)',
-              '&:hover': {
-                backgroundColor: 'rgba(255, 0, 0, 1)',
-              },
-            }}
-          >
-            <DeleteIcon fontSize="small" />
-          </IconButton>
-        )}
       </Box>
       <CardContent
         sx={{

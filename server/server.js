@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const { MongoMemoryServer } = require('mongodb-memory-server');
 require('dotenv').config();
 
 const app = express();
@@ -21,12 +22,29 @@ app.get('/', (req, res) => {
 app.use('/api/videos', require('./routes/videos'));
 app.use('/api/auth', require('./routes/auth'));
 
-// Mongo connect
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/clonetube')
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log('Mongo error:', err.message));
+// Start server with MongoDB
+const startServer = async () => {
+  try {
+    let mongoUri = process.env.MONGO_URI;
+    
+    // If no MONGO_URI, use MongoDB Memory Server (for development)
+    if (!mongoUri || mongoUri === 'mongodb://localhost:27017/clonetube') {
+      console.log('Starting MongoDB Memory Server...');
+      const mongoServer = await MongoMemoryServer.create();
+      mongoUri = mongoServer.getUri();
+      console.log('MongoDB Memory Server started');
+    }
+    
+    await mongoose.connect(mongoUri);
+    console.log('MongoDB connected');
+    
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error('Server startup error:', err.message);
+    process.exit(1);
+  }
+};
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+startServer();
