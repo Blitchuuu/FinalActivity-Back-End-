@@ -1,0 +1,116 @@
+:root {
+  font-family: 'Roboto', 'Segoe UI', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: #E0E0FF;
+  background: linear-gradient(135deg, #0A0E27 0%, #1A0F2E 50%, #0A0E27 100%);
+  background-attachment: fixed;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 600;
+  color: #FF00FF;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: #00D9FF;
+  text-shadow: 0 0 10px #FF00FF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0A0E27 0%, #1A0F2E 50%, #0A0E27 100%);
+  background-attachment: fixed;
+}
+
+body {
+  display: block;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  color: #FF00FF;
+  text-shadow: 0 0 10px #FF00FF, 0 0 20px #7C4DFF;
+  font-weight: 800;
+}
+
+h2, h3, h4, h5, h6 {
+  color: #E0E0FF;
+  font-weight: 600;
+}
+
+button {
+  border-radius: 8px;
+  border: 1.5px solid #7C4DFF;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 600;
+  font-family: inherit;
+  background: linear-gradient(135deg, #7C4DFF 0%, #9C27B0 100%);
+  color: #0A0E27;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #FF00FF 0%, #7C4DFF 100%);
+  border-color: #FF00FF;
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.6), 0 0 30px rgba(124, 77, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 2px solid #FF00FF;
+  outline-offset: 2px;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Input Fields */
+input, textarea, select {
+  background: rgba(26, 31, 58, 0.8);
+  border: 1.5px solid #7C4DFF;
+  color: #E0E0FF;
+  border-radius: 8px;
+  padding: 0.75em 1em;
+  font-family: inherit;
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #A0A0E0;
+  opacity: 0.7;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #FF00FF;
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.4), inset 0 0 10px rgba(124, 77, 255, 0.1);
+  color: #FF00FF;
+}
+
