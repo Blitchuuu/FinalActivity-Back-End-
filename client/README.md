@@ -1,18 +1,84 @@
-# React + Vite
+﻿# CloneTube Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend for CloneTube - a YouTube clone built with React + Vite.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎬 Browse and watch videos
+- 🔐 User authentication
+- ❤️ Like/Dislike videos
+- 💬 Comment on videos
+- 📺 Upload videos
+- 👥 Subscribe to channels
+- 🔍 Search videos
+- 📜 Watch history
 
-## React Compiler
+## Prerequisites
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- **Node.js** v16+ ([Download](https://nodejs.org/))
+- Backend server running at http://localhost:5001
 
-Note: This will impact Vite dev & build performances.
+## Quick Start
 
-## Expanding the ESLint configuration
+### 1. Install Dependencies
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+`ash
+npm install
+`
+
+### 2. Start Development Server
+
+`ash
+npm run dev
+`
+
+Open http://localhost:5173 in your browser
+
+### 3. Build for Production
+
+`ash
+npm run build
+`
+
+## Project Structure
+
+`
+src/
+├── api/          - API configuration & requests
+├── components/   - Reusable React components
+├── context/      - React Context (Auth)
+├── pages/        - Page components
+├── utils/        - Helper functions
+└── App.jsx       - Main app component
+`
+
+## Available Scripts
+
+- 
+pm run dev - Start dev server
+- 
+pm run build - Build for production
+- 
+pm run preview - Preview production build
+- 
+pm run lint - Run ESLint
+
+## Environment Setup
+
+The app connects to backend at /api (relative path). Ensure backend is running before starting frontend.
+
+## Technologies
+
+- React 19
+- Vite
+- Material-UI (MUI)
+- Axios
+- React Router
+
+## API Integration
+
+Axios instance is configured in src/api/axios.js with:
+- Base URL: /api
+- Auto JWT token injection in Authorization header
+- Error handling
+
