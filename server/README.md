@@ -30,16 +30,30 @@ Backend API for CloneTube - a YouTube clone application.
 
 ### 2. Setup Environment Variables
 
-`ash
+```bash
 cp .env.example .env
-`
+```
 
-Edit .env:
-`env
+Edit `.env`:
+```env
 PORT=5001
 MONGO_URI=mongodb://localhost:27017/clonetube
 JWT_SECRET=your_secure_secret_key_here
-`
+```
+
+**⚠️ How to generate JWT_SECRET:**
+
+Generate a secure random key using Node.js:
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+Copy the output and paste it as your JWT_SECRET value. Example:
+```env
+JWT_SECRET=a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6
+```
+
+**Never use the placeholder value in production!**
 
 ### 3. Install & Run
 
