@@ -6,6 +6,14 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   profilePic: String,
+  subscriptions: [{
+    channelId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    subscribedAt: { type: Date, default: Date.now }
+  }],
+  subscribers: [{
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    subscribedAt: { type: Date, default: Date.now }
+  }],
   watchHistory: [{
     videoId: { type: mongoose.Schema.Types.ObjectId, ref: 'Video' },
     watchedAt: { type: Date, default: Date.now }
