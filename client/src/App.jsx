@@ -36,7 +36,7 @@ function App() {
       <Router>
         <Box
           sx={{
-            background: '#0A0E27',
+            backgroundColor: 'background.default',
             minHeight: '100vh',
             width: '100%',
           }}

@@ -37,23 +37,23 @@ export default function CategoryChips({ selectedCategory = 'All', onCategoryChan
             onClick={() => handleChipClick(cat)}
             sx={{
               background: selectedCategory === cat 
-                ? `linear-gradient(135deg, #7C4DFF 0%, #FF00FF 100%)`
-                : `linear-gradient(135deg, #2D1B69 0%, #1A1F3A 100%)`,
+                ? `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`
+                : `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.background.paper} 100%)`,
               border: selectedCategory === cat
-                ? '1px solid #FF00FF'
-                : '1.5px solid #7C4DFF',
-              color: '#E0E0FF',
+                ? `1px solid ${theme.palette.secondary.main}`
+                : `1.5px solid ${theme.palette.primary.main}`,
+              color: theme.palette.text.primary,
               fontSize: '0.95rem',
               fontWeight: 500,
               cursor: 'pointer',
               transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
               boxShadow: selectedCategory === cat 
-                ? '0 0 13px rgba(0, 217, 255, 0.4)'
+                ? `0 0 13px ${theme.palette.success.main}66`
                 : 'none',
               '&:hover': {
-                background: `linear-gradient(135deg, #7C4DFF 0%, #FF00FF 100%)`,
-                boxShadow: '0 0 13px rgba(255, 0, 255, 0.5)',
-                borderColor: '#FF00FF',
+                background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
+                boxShadow: `0 0 13px ${theme.palette.secondary.main}80`,
+                borderColor: theme.palette.secondary.main,
               },
             }}
           />

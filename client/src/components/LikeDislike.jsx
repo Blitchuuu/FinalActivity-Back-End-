@@ -39,35 +39,35 @@ export default function LikeButton({
       spacing={0}
       alignItems="center"
       sx={{
-        background: `linear-gradient(135deg, rgba(124, 77, 255, 0.1) 0%, rgba(255, 0, 255, 0.05) 100%)`,
-        border: '2px solid #7C4DFF',
+        background: (theme) => `linear-gradient(135deg, ${theme.palette.primary.main}15 0%, ${theme.palette.secondary.main}0D 100%)`,
+        border: (theme) => `2px solid ${theme.palette.primary.main}`,
         borderRadius: 2,
         p: 1,
-        boxShadow: '0 0 15px rgba(124, 77, 255, 0.2)',
+        boxShadow: (theme) => `0 0 15px ${theme.palette.primary.main}33`,
       }}
     >
       <IconButton
         onClick={handleToggle}
-        sx={{
-          color: liked ? '#FF00FF' : '#A0A0E0',
+        sx={(theme) => ({
+          color: liked ? theme.palette.secondary.main : theme.palette.text.secondary,
           transition: 'all 0.3s ease',
-          textShadow: liked ? '0 0 10px #FF00FF' : 'none',
+          textShadow: liked ? `0 0 10px ${theme.palette.secondary.main}` : 'none',
           '&:hover': {
-            color: '#FF00FF',
-            textShadow: '0 0 10px #FF00FF',
+            color: theme.palette.secondary.main,
+            textShadow: `0 0 10px ${theme.palette.secondary.main}`,
           },
-        }}
+        })}
       >
         <ThumbUpIcon />
       </IconButton>
       <Typography
-        sx={{
-          color: liked ? '#FF00FF' : '#E0E0FF',
+        sx={(theme) => ({
+          color: liked ? theme.palette.secondary.main : theme.palette.text.primary,
           fontWeight: 700,
           minWidth: '40px',
           textAlign: 'center',
           transition: 'all 0.3s ease',
-        }}
+        })}
       >
         {count}
       </Typography>

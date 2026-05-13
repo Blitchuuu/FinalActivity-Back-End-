@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -22,6 +23,7 @@ const categories = [
 export { drawerWidth, miniWidth };
 
 export default function Sidebar({ open, onClose }) {
+  const theme = useTheme();
   const navigate = useNavigate();
 
   const handleClick = (category) => {
@@ -36,7 +38,7 @@ export default function Sidebar({ open, onClose }) {
         padding:0.5,
         width: open ? drawerWidth : miniWidth,
         height: 'calc(100vh - 64px)',
-        background: `linear-gradient(180deg, #1A1F3A 0%, #0A0E27 100%)`,
+        background: `linear-gradient(180deg, ${theme.palette.background.paper} 0%, ${theme.palette.background.default} 100%)`,
         transition: 'width 0.3s ease',
         zIndex: 1,
         overflow: 'hidden',
@@ -87,16 +89,16 @@ export default function Sidebar({ open, onClose }) {
                     navigate('/history');
                   }}
                   sx={{
-                    color: '#E0E0FF',
+                    color: theme.palette.text.primary,
                     transition: 'all 0.3s ease',
                     borderLeft: '3px solid transparent',
                     pl: open ? 2.5 : 1,
                     '&:hover': {
-                      backgroundColor: 'rgba(255, 0, 255, 0.1)',
-                      borderLeftColor: '#FF00FF',
-                      color: '#FF00FF',
+                      backgroundColor: `${theme.palette.secondary.main}1A`,
+                      borderLeftColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.main,
                       pl: open ? 2.5 : 1,
-                      textShadow: '0 0 10px rgba(255, 0, 255, 0.5)',
+                      textShadow: `0 0 10px ${theme.palette.secondary.main}80`,
                     },
                   }}
         >
@@ -127,16 +129,16 @@ export default function Sidebar({ open, onClose }) {
                     navigate('/subscriptions');
                   }}
                   sx={{
-                    color: '#E0E0FF',
+                    color: theme.palette.text.primary,
                     transition: 'all 0.3s ease',
                     borderLeft: '3px solid transparent',
                     pl: open ? 2.5 : 1,
                     '&:hover': {
-                      backgroundColor: 'rgba(255, 0, 255, 0.1)',
-                      borderLeftColor: '#FF00FF',
-                      color: '#FF00FF',
+                      backgroundColor: `${theme.palette.secondary.main}1A`,
+                      borderLeftColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.main,
                       pl: open ? 2.5 : 1,
-                      textShadow: '0 0 10px rgba(255, 0, 255, 0.5)',
+                      textShadow: `0 0 10px ${theme.palette.secondary.main}80`,
                     },
                   }}
         >
@@ -167,16 +169,16 @@ export default function Sidebar({ open, onClose }) {
               navigate('/profile');
             }}
             sx={{
-              color: '#E0E0FF',
+              color: theme.palette.text.primary,
               transition: 'all 0.3s ease',
               borderLeft: '3px solid transparent',
               pl: open ? 2.5 : 1,
               '&:hover': {
-                backgroundColor: 'rgba(255, 0, 255, 0.1)',
-                borderLeftColor: '#FF00FF',
-                color: '#FF00FF',
+                backgroundColor: `${theme.palette.secondary.main}1A`,
+                borderLeftColor: theme.palette.secondary.main,
+                color: theme.palette.secondary.main,
                 pl: open ? 2.5 : 1,
-                textShadow: '0 0 10px rgba(255, 0, 255, 0.5)',
+                textShadow: `0 0 10px ${theme.palette.secondary.main}80`,
               },
             }}
           >
@@ -207,7 +209,7 @@ export default function Sidebar({ open, onClose }) {
             <Typography
               variant="h6"
               sx={{
-                color: '#00D9FF',
+                color: theme.palette.success.main,
                 fontWeight: 700,
                 textShadow: 'none',
                 letterSpacing: 1,
@@ -223,16 +225,16 @@ export default function Sidebar({ open, onClose }) {
                 <ListItemButton
                   onClick={() => handleClick(cat)}
                   sx={{
-                    color: '#E0E0FF',
+                    color: theme.palette.text.primary,
                     transition: 'all 0.3s ease',
                     borderLeft: '3px solid transparent',
                     pl: 2.5,
                     '&:hover': {
-                      backgroundColor: 'rgba(255, 0, 255, 0.1)',
-                      borderLeftColor: '#FF00FF',
-                      color: '#FF00FF',
+                      backgroundColor: `${theme.palette.secondary.main}1A`,
+                      borderLeftColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.main,
                       pl: 3,
-                      textShadow: '0 0 10px rgba(255, 0, 255, 0.5)',
+                      textShadow: `0 0 10px ${theme.palette.secondary.main}80`,
                     },
                   }}
                 >

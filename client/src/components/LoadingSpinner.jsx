@@ -16,7 +16,7 @@ export default function LoadingSpinner() {
     >
       <CircularProgress
         sx={{
-          color: '#FF00FF',
+          color: theme.palette.secondary.main,
           '& .MuiCircularProgress-circle': {
             strokeLinecap: 'round',
           },

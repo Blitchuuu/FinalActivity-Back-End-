@@ -40,11 +40,11 @@ export default function VideoCard({ video, fullWidth = false }) {
         maxWidth: '100%',
         display: 'flex',
         flexDirection: 'column',
-        background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(124, 77, 255, 0.1) 100%)`,
-        border: `1px solid rgba(124, 77, 255, 0.3)`,
+        background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, ${theme.palette.primary.main}1A 100%)`,
+        border: `1px solid ${theme.palette.primary.main}4D`,
         '&:hover': {
-          boxShadow: `0 0 13px rgba(255, 0, 255, 0.6), 0 0 50px rgba(124, 77, 255, 0.3), inset 0 0 20px rgba(124, 77, 255, 0.1)`,
-          borderColor: '#FF00FF',
+          boxShadow: `0 0 13px ${theme.palette.secondary.main}99, 0 0 50px ${theme.palette.primary.main}4D, inset 0 0 20px ${theme.palette.primary.main}1A`,
+          borderColor: theme.palette.secondary.main,
         },
       }}
     >
@@ -54,7 +54,7 @@ export default function VideoCard({ video, fullWidth = false }) {
         sx={{
           position: 'relative',
           overflow: 'hidden',
-          backgroundColor: 'rgba(124, 77, 255, 0.1)',
+          backgroundColor: `${theme.palette.primary.main}1A`,
           height: 180,
         }}
       >
@@ -99,14 +99,14 @@ export default function VideoCard({ video, fullWidth = false }) {
             position: 'absolute',
             top: 8,
             right: 8,
-            backgroundColor: 'rgba(255, 0, 255, 0.9)',
-            color: '#ffffff',
+            backgroundColor: `${theme.palette.secondary.main}E6`,
+            color: theme.palette.text.primary,
             padding: '4px 8px',
             borderRadius: '4px',
             fontSize: '0.75rem',
             fontWeight: 700,
             textTransform: 'uppercase',
-            boxShadow: '0 0 10px rgba(255, 0, 255, 0.8)',
+            boxShadow: `0 0 10px ${theme.palette.secondary.main}CC`,
           }}
         >
           Trending
@@ -124,13 +124,13 @@ export default function VideoCard({ video, fullWidth = false }) {
           <Typography
             variant="subtitle1"
             noWrap
-            sx={{
+            sx={(theme) => ({
               fontWeight: 600,
-              color: '#E0E0FF',
+              color: theme.palette.text.primary,
               '&:hover': {
-                color: '#FF00FF',
+                color: theme.palette.secondary.main,
               },
-            }}
+            })}
           >
             {video.title}
           </Typography>
@@ -138,7 +138,7 @@ export default function VideoCard({ video, fullWidth = false }) {
             variant="body2"
             noWrap
             sx={{
-              color: '#A0A0E0',
+              color: theme.palette.text.secondary,
               mt: 0.5,
             }}
           >
@@ -151,7 +151,7 @@ export default function VideoCard({ video, fullWidth = false }) {
             justifyContent: 'space-between',
             mt: 1,
             fontSize: '0.75rem',
-            color: '#A0A0E0',
+            color: theme.palette.text.secondary,
           }}
         >
           <span>{video.views}</span>

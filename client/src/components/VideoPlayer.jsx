@@ -42,10 +42,10 @@ export default function VideoPlayer({ youtubeUrl, title, thumbnail, channel, cha
             height: 0,
             overflow: 'hidden',
             borderRadius: 2,
-            border: '1px solid #7C4DFF',
-            boxShadow: '0 0 13px rgba(255, 0, 255, 0.4), inset 0 0 20px rgba(124, 77, 255, 0.1)',
+            border: `1px solid ${theme.palette.primary.main}`,
+            boxShadow: `0 0 13px ${theme.palette.secondary.main}66, inset 0 0 20px ${theme.palette.primary.main}1A`,
             mb: 2,
-            backgroundColor: '#0A0E27',
+            backgroundColor: theme.palette.background.default,
           }}
         >
           <iframe
@@ -69,7 +69,7 @@ export default function VideoPlayer({ youtubeUrl, title, thumbnail, channel, cha
 <Typography
             variant="h5"
             sx={{
-              color: '#E0E0FF',
+              color: theme.palette.text.primary,
               fontWeight: 600,
               mb: 1,
             }}
@@ -79,7 +79,7 @@ export default function VideoPlayer({ youtubeUrl, title, thumbnail, channel, cha
           <Typography
             variant="body2"
             sx={{
-              color: '#A0A0E0',
+              color: theme.palette.text.secondary,
               mb: 2,
             }}
           >
@@ -103,13 +103,13 @@ export default function VideoPlayer({ youtubeUrl, title, thumbnail, channel, cha
           height: 0,
           overflow: 'hidden',
           borderRadius: 2,
-          border: '1px solid #7C4DFF',
-          boxShadow: '0 0 13px rgba(255, 0, 255, 0.4), inset 0 0 20px rgba(124, 77, 255, 0.1)',
+          border: `1px solid ${theme.palette.primary.main}`,
+          boxShadow: `0 0 13px ${theme.palette.secondary.main}66, inset 0 0 20px ${theme.palette.primary.main}1A`,
           mb: 2,
-          backgroundColor: '#0A0E27',
+          backgroundColor: theme.palette.background.default,
           cursor: 'pointer',
           '&:hover': {
-            boxShadow: '0 0 25px rgba(0, 217, 255, 0.6)',
+            boxShadow: `0 0 25px ${theme.palette.success.main}99`,
           },
         }}
         onClick={handlePlay}
@@ -132,7 +132,7 @@ export default function VideoPlayer({ youtubeUrl, title, thumbnail, channel, cha
             bottom: 16,
             right: 16,
             backgroundColor: 'rgba(0,0,0,0.7)',
-            color: 'white',
+            color: theme.palette.text.primary,
             px: 1,
             py: 0.5,
             borderRadius: 1,
@@ -150,13 +150,13 @@ export default function VideoPlayer({ youtubeUrl, title, thumbnail, channel, cha
             width: 60,
             height: 60,
             borderRadius: '50%',
-            backgroundColor: 'rgba(255, 0, 255, 0.8)',
+            backgroundColor: `${theme.palette.secondary.main}CC`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: '1.5rem',
-            color: 'white',
-            boxShadow: '0 0 20px rgba(255, 0, 255, 0.6)',
+            color: theme.palette.text.primary,
+            boxShadow: `0 0 20px ${theme.palette.secondary.main}99`,
           }}
         >
           ▶
@@ -167,7 +167,7 @@ export default function VideoPlayer({ youtubeUrl, title, thumbnail, channel, cha
           <Typography
             variant="h5"
             sx={{
-              color: '#E0E0FF',
+              color: theme.palette.text.primary,
               fontWeight: 600,
               mb: 1,
             }}
@@ -177,7 +177,7 @@ export default function VideoPlayer({ youtubeUrl, title, thumbnail, channel, cha
           <Typography
             variant="body2"
             sx={{
-              color: '#A0A0E0',
+              color: theme.palette.text.secondary,
               mb: 2,
             }}
           >
