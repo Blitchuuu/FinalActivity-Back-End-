@@ -408,8 +408,9 @@ router.delete("/:id", auth, async (req, res) => {
     if (!video) {
       return res.status(404).json({ message: "Video not found" });
     }
-    // Only allow owner to delete
-    if (String(video.channelId) !== String(req.userId)) {
+    // Only allow owner to delete (handle possible channelId shapes: ObjectId vs populated object)
+    const channelId = video.channelId?._id ? video.channelId._id : video.channelId;
+    if (!channelId || String(channelId) !== String(req.userId)) {
       return res.status(403).json({ message: "Not authorized to delete this video" });
     }
     await Video.findByIdAndDelete(req.params.id);

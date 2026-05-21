@@ -1,8 +1,10 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const Video = require('./models/Video');
-const User = require('./models/User');
-require('dotenv').config();
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+import Video from './models/Video.js';
+import User from './models/User.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 mongoose.connect(process.env.MONGO_URI, {
   serverSelectionTimeoutMS: 10000,

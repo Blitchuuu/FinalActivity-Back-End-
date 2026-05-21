@@ -46,7 +46,7 @@ export default function SearchResults() {
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h4" gutterBottom sx={{ mb: 4, color: '#00D9FF' }}>
-        {loading ? 'Searching...' : `${searchVideos.length} result${searchVideos.length !== 1 ? 's' : ''} for "${q}`}
+        {loading ? 'Searching...' : `${searchVideos.length} result${searchVideos.length !== 1 ? 's' : ''} for "${q}"`}
       </Typography>
       {loading ? (
         <LoadingSpinner />

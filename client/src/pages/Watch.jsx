@@ -85,9 +85,13 @@ export default function Watch() {
       navigate('/');
     } catch (err) {
       console.error('Delete failed:', err);
-      alert('Failed to delete video');
+
+      const status = err?.response?.status;
+      const message = err?.response?.data?.message;
+      alert(`Failed to delete video (${status ?? 'error'}): ${message ?? 'Unknown error'}`);
+    } finally {
+      setDeleteDialogOpen(false);
     }
-    setDeleteDialogOpen(false);
   };
 
   const isOwner = auth.user?.id && video?.channelId && String(video.channelId) === String(auth.user.id);

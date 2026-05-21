@@ -29,7 +29,7 @@ const startServer = async () => {
       throw new Error("MONGO_URI is missing in .env file");
     }
 
-    console.log("Connecting to MongoDB Atlas...");
+    console.log("Connecting to MongoDB (Local)...");
 
     await mongoose.connect(mongoUri, {
       serverSelectionTimeoutMS: 30000,
@@ -37,7 +37,7 @@ const startServer = async () => {
       family: 4
     });
 
-    console.log("MongoDB Atlas connected successfully!");
+    console.log("MongoDB connected successfully!");
 
     // Routes
     app.use("/api/videos", videoRoutes);
