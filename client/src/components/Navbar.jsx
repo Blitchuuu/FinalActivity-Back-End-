@@ -12,12 +12,12 @@ const Search = styled('div')(({ theme }) => ({
   backgroundColor: alpha(theme.palette.common.black, 0.25),
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.black, 0.35),
-    borderColor: '#FF00FF',
-    boxShadow: '0 0 15px rgba(255, 0, 255, 0.4)',
+    borderColor: theme.palette.secondary.main,
+    boxShadow: `0 0 15px ${theme.palette.secondary.main}66`,
   },
   '&:focus-within': {
-    borderColor: '#FF00FF',
-    boxShadow: '0 0 15px rgba(255, 0, 255, 0.4)',
+    borderColor: theme.palette.secondary.main,
+    boxShadow: `0 0 15px ${theme.palette.secondary.main}66`,
   },
   marginLeft: 0,
   width: '100%',
@@ -36,7 +36,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: '#FF00FF',
+  color: theme.palette.secondary.main,
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -46,18 +46,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
-    color: '#E0E0FF',
+    color: theme.palette.text.primary,
     fontSize: '1rem',
     [theme.breakpoints.up('sm')]: {
       width: '40ch',
       '&:focus': {
         width: '55ch',
-        color: '#f5f5f5',
+        color: theme.palette.text.primary,
       },
     },
   },
   '& .MuiInputBase-input::placeholder': {
-    color: '#A0A0E0',
+    color: theme.palette.text.secondary,
     opacity: 0.7,
   },
 }));
@@ -78,40 +78,40 @@ export default function Navbar({ onMenuClick }) {
   return (
     <AppBar
       position="fixed"
-      sx={{
-        zIndex: (theme) => theme.zIndex.drawer + 1,
-        background: `linear-gradient(135deg, #1A1F3A 0%, #2D1B69 100%)`,
-        boxShadow: '0 0 20px rgba(255, 0, 255, 0.3), 0 0 40px rgba(124, 77, 255, 0.2)',
-        borderBottom: '2px solid #FF00FF',
-      }}
+      sx={(theme) => ({
+        zIndex: theme.zIndex.drawer + 1,
+        background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, ${theme.palette.primary.dark} 100%)`,
+        boxShadow: `0 0 20px ${theme.palette.secondary.main}4D, 0 0 40px ${theme.palette.primary.main}33`,
+        borderBottom: `2px solid ${theme.palette.secondary.main}`,
+      })}
     >
       <Toolbar>
         <IconButton
           color="inherit"
           edge="start"
           onClick={onMenuClick}
-          sx={{
+          sx={(theme) => ({
             mr: 2,
-            color: '#ffffff',
+            color: theme.palette.text.primary,
             '&:hover': {
-              textShadow: '0 0 10px #FF00FF',
+              textShadow: `0 0 10px ${theme.palette.secondary.main}`,
             },
-          }}
+          })}
         >
           <MenuIcon />
         </IconButton>
 
         <Typography
           variant="h4"
-          sx={{
+          sx={(theme) => ({
             flexGrow: 0,
             mr: 4,
-            color: '#b4d2ff',
+            color: theme.palette.text.primary,
             fontWeight: 800,
             textShadow: 'none',
             letterSpacing: 2,
             cursor: 'pointer',
-          }}
+          })}
           onClick={() => navigate('/')}
         >
           CloneTube
@@ -144,18 +144,18 @@ export default function Navbar({ onMenuClick }) {
           Upload
         </Button>
         <Avatar
-          sx={{
+          sx={(theme) => ({
             ml: 2,
             width: 40,
             height: 40,
-            color: '#E0E0FF',
-            background: `linear-gradient(135deg, #FF00FF 0%, #7C4DFF 100%)`,
-            boxShadow: '0 0 10px rgba(124, 77, 255, 0.5)',
+            color: theme.palette.text.primary,
+            background: `linear-gradient(135deg, ${theme.palette.secondary.main} 0%, ${theme.palette.primary.main} 100%)`,
+            boxShadow: `0 0 10px ${theme.palette.primary.main}80`,
             cursor: 'pointer',
             '&:hover': {
-              boxShadow: '0 0 13px rgba(124, 77, 255, 0.8)',
+              boxShadow: `0 0 13px ${theme.palette.primary.main}CC`,
             },
-          }}
+          })}
            onClick={() => navigate('/profile')}
         > 
           {user?.username ? user.username.charAt(0).toUpperCase() : 'U'}

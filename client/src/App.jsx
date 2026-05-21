@@ -18,6 +18,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import History from './pages/History';
 import EditVideo from './pages/EditVideo';
+import Channel from './pages/Channel';
 
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -35,7 +36,7 @@ function App() {
       <Router>
         <Box
           sx={{
-            background: '#0A0E27',
+            backgroundColor: 'background.default',
             minHeight: '100vh',
             width: '100%',
           }}
@@ -57,6 +58,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/watch/:id" element={<Watch />} />
               <Route path="/search" element={<SearchResults />} />
+              <Route path="/channel/:channelId" element={<Channel />} />
+
               <Route
                 path="/subscriptions"
                 element={

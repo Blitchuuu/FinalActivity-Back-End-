@@ -1,23 +1,32 @@
-import { Card, CardMedia, CardContent, Typography, Box, IconButton } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import useAuth from '../context/useAuth';
-import { apiVideos } from '../api/axios';
+import { apiVideos, apiUsers } from '../api/axios';
 
-export default function VideoCard({ video }) {
+export default function VideoCard({ video, fullWidth = false }) {
+  const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
   const { user } = useAuth();
-  const isOwner = user && video && video.channelId?.toString() === user.id;
 
   const handleClick = async () => {
     try {
       await apiVideos.incrementView(video.id);
+      if (user) {
+        await apiUsers.addToHistory(user.id, video.id);
+      }
     } catch (err) {
-      console.error('View increment failed', err);
+      console.error('View increment or history add failed', err);
     }
     navigate(`/watch/${video.id}`);
+  };
+
+  const getYouTubeId = (url) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
   };
 
   return (
@@ -25,28 +34,31 @@ export default function VideoCard({ video }) {
       onClick={handleClick}
       sx={{
         cursor: 'pointer',
-        height: '100%',
-        width: '15vw',
+        height: fullWidth ? 'auto' : '100%',
+        flex: fullWidth ? '0 1 auto' : '1 1 auto',
+        width: fullWidth ? '100%' : '15vw',
         maxWidth: '100%',
         display: 'flex',
         flexDirection: 'column',
-        background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, rgba(124, 77, 255, 0.1) 100%)`,
-        border: `1px solid rgba(124, 77, 255, 0.3)`,
+        background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, ${theme.palette.primary.main}1A 100%)`,
+        border: `1px solid ${theme.palette.primary.main}4D`,
         '&:hover': {
-          boxShadow: `0 0 13px rgba(255, 0, 255, 0.6), 0 0 50px rgba(124, 77, 255, 0.3), inset 0 0 20px rgba(124, 77, 255, 0.1)`,
-          borderColor: '#FF00FF',
+          boxShadow: `0 0 13px ${theme.palette.secondary.main}99, 0 0 50px ${theme.palette.primary.main}4D, inset 0 0 20px ${theme.palette.primary.main}1A`,
+          borderColor: theme.palette.secondary.main,
         },
       }}
     >
       <Box
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         sx={{
           position: 'relative',
           overflow: 'hidden',
-          backgroundColor: 'rgba(124, 77, 255, 0.1)',
+          backgroundColor: `${theme.palette.primary.main}1A`,
           height: 180,
         }}
       >
-          <CardMedia
+        <CardMedia
           component="img"
           image={video.thumbnail || 'https://picsum.photos/1280/720?random=1?blur'}
           alt={video.title}
@@ -57,81 +69,48 @@ export default function VideoCard({ video }) {
             height: '100%',
             width: '100%',
             objectFit: 'cover',
-            transition: 'opacity 0.3s ease',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            zIndex: 1,
+            transition: 'all 0.3s ease',
+            transform: isHovered ? 'scale(1.02)' : 'scale(1)',
+            filter: isHovered ? 'brightness(1.05)' : 'brightness(1)',
           }}
         />
 
-
-
-        <CardMedia
-            component="video"
-            src={video.src || 'https://www.w3schools.com/html/mov_bbb.mp4'}
-            muted
-            loop
-            playsInline
-            onMouseEnter={(e) => e.target.play()}
-            onMouseLeave={(e) => e.target.pause()}
-            sx={{
-              height: '100%',
-              width: '100%',
-              objectFit: 'cover',
-              opacity: 0,
+        {/* YouTube Preview - plays on hover - NO OVERLAY */}
+        {isHovered && video.youtubeUrl && (
+          <iframe
+            src={`https://www.youtube.com/embed/${getYouTubeId(video.youtubeUrl)}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&fs=0&branding=0&ab=0&cc_load_policy=0`}
+            style={{
               position: 'absolute',
               top: 0,
               left: 0,
-              zIndex: 2,
-              '&:hover': {
-                opacity: 1,
-              },
+              width: '100%',
+              height: '100%',
+              border: 'none',
+              pointerEvents: 'none',
             }}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen={false}
+            title={`Preview - ${video.title}`}
           />
+        )}
 
         <Box
           sx={{
             position: 'absolute',
             top: 8,
             right: 8,
-            backgroundColor: 'rgba(255, 0, 255, 0.9)',
-            color: '#ffffff',
+            backgroundColor: `${theme.palette.secondary.main}E6`,
+            color: theme.palette.text.primary,
             padding: '4px 8px',
             borderRadius: '4px',
             fontSize: '0.75rem',
             fontWeight: 700,
             textTransform: 'uppercase',
-            boxShadow: '0 0 10px rgba(255, 0, 255, 0.8)',
+            boxShadow: `0 0 10px ${theme.palette.secondary.main}CC`,
           }}
         >
           Trending
         </Box>
-        {isOwner && (
-          <IconButton
-            onClick={(e) => {
-              e.stopPropagation();
-              if (confirm('Delete this video?')) {
-                apiVideos.deleteVideo(video.id).then(() => {
-                  // Optimistic remove would require parent callback; reload page
-                  window.location.reload();
-                }).catch(() => alert('Delete failed'));
-              }
-            }}
-            sx={{
-              position: 'absolute',
-              top: 8,
-              left: 8,
-              color: 'error.main',
-              backgroundColor: 'rgba(255, 0, 0, 0.8)',
-              '&:hover': {
-                backgroundColor: 'rgba(255, 0, 0, 1)',
-              },
-            }}
-          >
-            <DeleteIcon fontSize="small" />
-          </IconButton>
-        )}
       </Box>
       <CardContent
         sx={{
@@ -145,13 +124,13 @@ export default function VideoCard({ video }) {
           <Typography
             variant="subtitle1"
             noWrap
-            sx={{
+            sx={(theme) => ({
               fontWeight: 600,
-              color: '#E0E0FF',
+              color: theme.palette.text.primary,
               '&:hover': {
-                color: '#FF00FF',
+                color: theme.palette.secondary.main,
               },
-            }}
+            })}
           >
             {video.title}
           </Typography>
@@ -159,7 +138,7 @@ export default function VideoCard({ video }) {
             variant="body2"
             noWrap
             sx={{
-              color: '#A0A0E0',
+              color: theme.palette.text.secondary,
               mt: 0.5,
             }}
           >
@@ -172,7 +151,7 @@ export default function VideoCard({ video }) {
             justifyContent: 'space-between',
             mt: 1,
             fontSize: '0.75rem',
-            color: '#A0A0E0',
+            color: theme.palette.text.secondary,
           }}
         >
           <span>{video.views}</span>
@@ -182,5 +161,4 @@ export default function VideoCard({ video }) {
     </Card>
   );
 }
- 
 

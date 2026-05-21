@@ -37,21 +37,21 @@ const theme = createTheme({
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
       fontWeight: 700,
-      color: '#00D9FF',
+      color: '#00D9FF', // success.main
       textShadow: 'none',
     },
     h2: {
       fontWeight: 700,
-      color: '#00D9FF',
+      color: '#00D9FF', // success.main
       textShadow: 'none',
     },
     h3: {
       fontWeight: 600,
-      color: '#00D9FF',
+      color: '#00D9FF', // success.main
     },
     h4: {
       fontWeight: 600,
-      color: '#E0E0FF',
+      color: '#E0E0FF', // text.primary
       letterSpacing: 1,
     },
     h5: {
@@ -60,7 +60,7 @@ const theme = createTheme({
     },
     h6: {
       fontWeight: 600,
-      color: '#E0E0FF',
+      color: '#E0E0FF', // text.primary
     },
     button: {
       textTransform: 'uppercase',
@@ -72,6 +72,33 @@ const theme = createTheme({
     borderRadius: 8,
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          background: 'linear-gradient(135deg, #0A0E27 0%, #1A0F2E 50%, #0A0E27 100%)',
+          backgroundAttachment: 'fixed',
+          color: '#E0E0FF',
+          margin: 0,
+          padding: 0,
+          '::-webkit-scrollbar': {
+            width: '10px',
+            height: '10px',
+          },
+          '::-webkit-scrollbar-track': {
+            background: 'rgba(124, 77, 255, 0.05)',
+          },
+          '::-webkit-scrollbar-thumb': {
+            background: '#7C4DFF',
+            borderRadius: '5px',
+            transition: 'all 0.3s ease',
+          },
+          '::-webkit-scrollbar-thumb:hover': {
+            background: '#FF00FF',
+            boxShadow: '0 0 15px rgba(255, 0, 255, 0.5)',
+          },
+        },
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         root: {
@@ -201,10 +228,10 @@ const theme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
-          color: '#E0E0FF',
+          color: '#E0E0FF', // text.primary
           transition: 'all 0.3s ease',
           '&:hover': {
-            color: '#FF00FF',
+            color: '#FF00FF', // secondary.main
             textShadow: '0 0 10px #FF00FF',
           },
         },
